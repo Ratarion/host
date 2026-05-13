@@ -1,0 +1,210 @@
+/* ======================== НАВИГАЦИЯ ======================== */
+
+/* КНОПКА В ШАПКЕ */
+.header-call-btn {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1001;
+    
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 18px;
+    
+    background: linear-gradient(90deg, #c70036 0%, #d4af37 100%);
+    border-radius: 50px;
+    
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    font-family: 'Inter', sans-serif;
+    
+    box-shadow: 0 8px 25px rgba(199, 0, 54, 0.4);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    white-space: nowrap;
+}
+
+.header-call-btn:hover {
+    transform: translate(-50%, -50%) scale(1.06);
+    box-shadow: 0 12px 35px rgba(199, 0, 54, 0.6);
+}
+
+
+.header-call-btn img {
+    width: 26px;
+    height: 26px;
+    filter: brightness(0) invert(1);   /* делает иконку полностью белой */
+    transition: filter 0.3s ease;
+}
+
+
+/* ПОЛНОЭКРАННОЕ МОБИЛЬНОЕ МЕНЮ */
+.nav-list {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #0a0b14;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 10%;
+    z-index: 1500;
+    list-style: none;
+    margin: 0;
+    
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-20px);
+    transition: all 0.4s ease;
+
+    touch-action: pan-y;           /* запрещает горизонтальный свайп */
+    box-sizing: border-box;
+    gap: 5px;                     /* нормальный отступ между пунктами */
+}
+
+.nav-list.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Логотип вверху меню */
+.nav-list::before {
+    content: "Ascending Star";
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #d4af37;
+    margin-bottom: 1px;
+    letter-spacing: -1px;
+}
+
+/* Пункты меню */
+.nav-list li {
+    margin: 0 !important;
+    padding: 0;
+}
+
+.nav-list a {
+    font-size: 2.25rem;
+    font-family: 'Playfair Display', serif;
+    color: #e0e0e5;
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.nav-list a:hover {
+    color: #d4af37;
+    transform: translateX(14px);
+}
+
+/* Кнопка "Позвонить" внизу меню */
+.mobile-call-wrapper {
+    margin-top: auto;
+    padding-bottom: 60px;
+    width: 100%;
+}
+
+.nav-list-call-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    
+    width: 100%;
+    padding: 10px 40px;
+    
+    background: linear-gradient(90deg, #c70036 0%, #ff4a1f 48%, #d4af37 100%);
+    border-radius: 60px;
+    
+    color: #ffffff !important;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 1.28rem;
+    text-transform: none;
+    
+    box-shadow: 0 10px 30px rgba(199, 0, 54, 0.45);
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.nav-list-call-btn img {
+    width: 36px;
+    height: 36px;
+    filter: brightness(0) invert(1);   /* делает иконку полностью белой */
+    transition: filter 0.3s ease;
+}
+
+
+
+.nav-list-call-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(199, 0, 54, 0.6);
+}
+
+.nav-list-call-btn .phone-icon {
+    font-size: 1.5rem;
+}
+
+/* Гамбургер → Крестик */
+#nav-icon {
+    display: block;
+    width: 30px;
+    height: 20px;
+    position: relative;
+    cursor: pointer;
+    z-index: 2000;
+}
+
+#nav-icon span {
+    display: block;
+    position: absolute;
+    height: 3px;
+    width: 100%;
+    background: #e0e0e5;
+    border-radius: 3px;
+    left: 0;
+    transition: .25s ease-in-out;
+}
+
+#nav-icon span:nth-child(1) { top: 0px; }
+#nav-icon span:nth-child(2) { top: 9px; }
+#nav-icon span:nth-child(3) { top: 18px; }
+
+#nav-icon.open span:nth-child(1) { top: 9px; transform: rotate(135deg); }
+#nav-icon.open span:nth-child(2) { opacity: 0; left: -20px; }
+#nav-icon.open span:nth-child(3) { top: 9px; transform: rotate(-135deg); }
+
+/* ===================== КОМПАКТНЫЙ РЕЖИМ ===================== */
+@media (max-width: 768px) {
+    .nav-list::before {
+        font-size: 2.1rem;
+        margin-bottom: 35px;
+    }
+    
+    .nav-list a {
+        font-size: 2.05rem;
+    }
+    
+    .mobile-call-wrapper {
+        padding-bottom: 50px;
+    }
+    
+    .nav-list-call-btn {
+        padding: 18px 40px;
+        font-size: 1.22rem;
+    }
+}
+
+/* Скрываем кнопку в шапке на мобильных */
+@media (max-width: 768px) {
+    .header-call-btn { display: none; }
+}
