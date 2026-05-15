@@ -86,23 +86,23 @@
 }
 
 /* ===================== О ЗАРЕ ===================== */
-.about-zara {
+.about-dog {
     padding: 100px 5% 90px;
     background: #11141f;
     width: 100%;
 }
 
-.about-zara .inner-container {
+.about-dog .inner-container {
     max-width: 1100px;
     margin: 0 auto;
 }
 
-.about-zara .section-title {
+.about-dog .section-title {
     text-align: center;
     margin-bottom: 40px;
 }
 
-.about-zara .dog-description p {
+.about-dog .dog-description p {
     font-size: 1.13rem;
     line-height: 1.9;
     color: #9da1aa;
@@ -307,7 +307,7 @@
         font-size: 2.4rem;
     }
     
-    .about-zara,
+    .about-dog,
     .awards-section,
     .progeny-section,
     .gallery {

@@ -1,265 +1,381 @@
-const navIcon = document.getElementById('nav-icon');
-const navList = document.querySelector('.nav-list');
-const navLinks = document.querySelectorAll('.nav-list a');
-const headerBtn = document.querySelector('.header-call-btn'); // Новый класс
-
-function toggleMenu() {
-    const isOpen = navList.classList.toggle('show');
-    navIcon.classList.toggle('open');
-    document.body.style.overflow = isOpen ? 'hidden' : '';
-
-    // Прячем кнопку в шапке, чтобы не мешалась
-    if (headerBtn) {
-        headerBtn.style.opacity = isOpen ? '0' : '1';
-        headerBtn.style.pointerEvents = isOpen ? 'none' : 'auto';
-    }
-}
-
-navIcon.addEventListener('click', toggleMenu);
-
-navLinks.forEach(link => {
-    link.addEventListener('click', () => {
-        if (navList.classList.contains('show')) toggleMenu();
-    });
-});
-
-function initUniversalFooter() {
-    const footerPlaceholder = document.getElementById('footer-placeholder');
-    if (!footerPlaceholder) return;
-
-    // Путь к файлу футера
-    fetch('components/footer.html')
-        .then(response => {
-            if (!response.ok) throw new Error('Footer file not found');
-            return response.text();
-        })
-        .then(data => {
-            footerPlaceholder.innerHTML = data;
-        })
-        .catch(error => {
-            console.error('Error loading footer:', error);
-        });
-}
-
-// ===================== СЛАЙДЕР ГАЛЕРЕИ (ДИНАМИЧЕСКИЙ) =====================
 document.addEventListener('DOMContentLoaded', () => {
+
+    // ===================== НАВИГАЦИЯ =====================
+    const navIcon = document.getElementById('nav-icon');
+    const navList = document.querySelector('.nav-list');
+    const navLinks = document.querySelectorAll('.nav-list a');
+    const headerBtn = document.querySelector('.header-call-btn');
+
+    function toggleMenu() {
+        const isOpen = navList.classList.toggle('show');
+        navIcon.classList.toggle('open');
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+
+        if (headerBtn) {
+            headerBtn.style.opacity = isOpen ? '0' : '1';
+            headerBtn.style.pointerEvents = isOpen ? 'none' : 'auto';
+        }
+    }
+
+    if (navIcon) navIcon.addEventListener('click', toggleMenu);
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            if (navList.classList.contains('show')) toggleMenu();
+        });
+    });
+
+
+    // ===================== ФУТЕР =====================
+    function initUniversalFooter() {
+        const footerPlaceholder = document.getElementById('footer-placeholder');
+        if (!footerPlaceholder) return;
+
+        fetch('/components/footer.html')
+            .then(response => {
+                if (!response.ok) throw new Error('Footer file not found');
+                return response.text();
+            })
+            .then(data => {
+                footerPlaceholder.innerHTML = data;
+            })
+            .catch(error => {
+                console.error('Error loading footer:', error);
+            });
+    }
+
     initUniversalFooter();
 
+
+    // ===================== СЛАЙДЕР ГАЛЕРЕИ =====================
     const gallerySlider = document.querySelector('.gallery-slider');
-    if (!gallerySlider) return;
+    if (gallerySlider) {
+        const wrapper = document.getElementById('gallery-slides');
+        const galleryImages = [
+            "asset/img/tour/tour.jpg",
+            "asset/img/tour/tour1.jpg",
+            "asset/img/tour/tour2.jpg",
+            "asset/gallery/Artemis hunting is my passion5.jpg",
+        ];
 
-    const wrapper = document.getElementById('gallery-slides');
-
-    // ←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←
-    const galleryImages = [
-        "asset/img/tour/tour.jpg",
-        "asset/img/tour/tour1.jpg",
-        "asset/img/tour/tour2.jpg",
-        "asset/gallery/Artemis hunting is my passion5.jpg",
-    ];
-    // ←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←
-
-    // Автоматически создаём все слайды
-    wrapper.innerHTML = ''; // очищаем на всякий случай
-    galleryImages.forEach(src => {
-        const slide = document.createElement('div');
-        slide.className = 'slide';
-        slide.innerHTML = `<img src="${src}" alt="Ирландский сеттер">`;
-        wrapper.appendChild(slide);
-    });
-
-    const slides = wrapper.querySelectorAll('.slide');
-    const prevBtn = gallerySlider.querySelector('.slider-prev');
-    const nextBtn = gallerySlider.querySelector('.slider-next');
-    const dotsContainer = gallerySlider.querySelector('.slider-dots');
-
-    let currentIndex = 0;
-    const totalSlides = slides.length;
-
-    // Создаём точки
-    dotsContainer.innerHTML = '';
-    for (let i = 0; i < totalSlides; i++) {
-        const dot = document.createElement('div');
-        dot.classList.add('slider-dot');
-        if (i === 0) dot.classList.add('active');
-        dot.addEventListener('click', () => goToSlide(i));
-        dotsContainer.appendChild(dot);
-    }
-    const dots = dotsContainer.querySelectorAll('.slider-dot');
-
-    function goToSlide(index) {
-        currentIndex = (index + totalSlides) % totalSlides;
-        wrapper.style.transform = `translateX(-${currentIndex * 100}%)`;
-        dots.forEach((dot, i) => dot.classList.toggle('active', i === currentIndex));
-    }
-
-    prevBtn.addEventListener('click', () => goToSlide(currentIndex - 1));
-    nextBtn.addEventListener('click', () => goToSlide(currentIndex + 1));
-
-    // Автопрокрутка
-    let autoplayInterval = setInterval(() => {
-        goToSlide(currentIndex + 1);
-    }, 4000);
-
-    gallerySlider.addEventListener('mouseenter', () => clearInterval(autoplayInterval));
-    gallerySlider.addEventListener('mouseleave', () => {
-        autoplayInterval = setInterval(() => goToSlide(currentIndex + 1), 4000);
-    });
-
-    // Свайп на мобильных
-    let startX = 0;
-    wrapper.addEventListener('touchstart', e => startX = e.touches[0].clientX);
-    wrapper.addEventListener('touchend', e => {
-        const endX = e.changedTouches[0].clientX;
-        if (endX < startX - 50) goToSlide(currentIndex + 1);
-        else if (endX > startX + 50) goToSlide(currentIndex - 1);
-    });
-
-    // Инициализация
-    goToSlide(0);
-});
-
-
-// Слайдер litters
-document.addEventListener('DOMContentLoaded', () => {
-    const slider = document.querySelector('.litters-slider');
-    if (!slider) return;
-
-    const wrapper = slider.querySelector('.litters-wrapper');
-    const cards = slider.querySelectorAll('.producer-card');
-    const prevBtn = slider.querySelector('.litter-prev');
-    const nextBtn = slider.querySelector('.litter-next');
-    const dotsContainer = slider.querySelector('.litter-dots');
-
-    let currentIndex = 0;
-    const total = cards.length;
-    const GAP = 40;
-
-    if (total === 0) return;
-
-    dotsContainer.innerHTML = '';
-    for (let i = 0; i < total; i++) {
-        const dot = document.createElement('div');
-        dot.classList.add('litter-dot');
-        if (i === 0) dot.classList.add('active');
-        dot.addEventListener('click', () => goToSlide(i));
-        dotsContainer.appendChild(dot);
-    }
-
-    const dots = dotsContainer.querySelectorAll('.litter-dot');
-
-    function goToSlide(index) {
-        currentIndex = (index + total) % total;
-
-        const cardWidth = cards[0].getBoundingClientRect().width;
-        const offset = currentIndex * (cardWidth + GAP);
-
-        wrapper.style.transform = `translateX(-${offset}px)`;
-
-        dots.forEach((dot, i) => {
-            dot.classList.toggle('active', i === currentIndex);
+        wrapper.innerHTML = '';
+        galleryImages.forEach(src => {
+            const slide = document.createElement('div');
+            slide.className = 'slide';
+            slide.innerHTML = `<img src="${src}" alt="Ирландский сеттер">`;
+            wrapper.appendChild(slide);
         });
-    }
 
-    prevBtn.addEventListener('click', () => goToSlide(currentIndex - 1));
-    nextBtn.addEventListener('click', () => goToSlide(currentIndex + 1));
+        const slides = wrapper.querySelectorAll('.slide');
+        const prevBtn = gallerySlider.querySelector('.slider-prev');
+        const nextBtn = gallerySlider.querySelector('.slider-next');
+        const dotsContainer = gallerySlider.querySelector('.slider-dots');
 
-    let autoInterval = setInterval(() => goToSlide(currentIndex + 1), 5000);
+        let currentIndex = 0;
+        const totalSlides = slides.length;
 
-    slider.addEventListener('mouseenter', () => clearInterval(autoInterval));
-    slider.addEventListener('mouseleave', () => {
-        autoInterval = setInterval(() => goToSlide(currentIndex + 1), 5000);
-    });
+        // Точки
+        dotsContainer.innerHTML = '';
+        for (let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.classList.add('slider-dot');
+            if (i === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => goToSlide(i));
+            dotsContainer.appendChild(dot);
+        }
+        const dots = dotsContainer.querySelectorAll('.slider-dot');
 
-    window.addEventListener('resize', () => goToSlide(currentIndex));
+        function goToSlide(index) {
+            currentIndex = (index + totalSlides) % totalSlides;
+            wrapper.style.transform = `translateX(-${currentIndex * 100}%)`;
+            dots.forEach((dot, i) => dot.classList.toggle('active', i === currentIndex));
+        }
 
-    goToSlide(0);
-});
+        if (prevBtn) prevBtn.addEventListener('click', () => goToSlide(currentIndex - 1));
+        if (nextBtn) nextBtn.addEventListener('click', () => goToSlide(currentIndex + 1));
 
-// Слайдер champion
-document.addEventListener('DOMContentLoaded', () => {
-    const slider = document.querySelector('.champions-slider');
-    if (!slider) return;
+        // Автопрокрутка
+        let autoplayInterval = setInterval(() => goToSlide(currentIndex + 1), 4000);
 
-    const wrapper = slider.querySelector('.champions-wrapper');
-    const cards = slider.querySelectorAll('.champion-card');
-    const prevBtn = slider.querySelector('.champion-prev');
-    const nextBtn = slider.querySelector('.champion-next');
-    const dotsContainer = slider.querySelector('.champion-dots');
-
-    let currentIndex = 0;
-    const total = cards.length;
-    if (total === 0) return;
-
-    // Создаём точки
-    dotsContainer.innerHTML = '';
-    for (let i = 0; i < total; i++) {
-        const dot = document.createElement('div');
-        dot.classList.add('champion-dot');
-        if (i === 0) dot.classList.add('active');
-        dot.addEventListener('click', () => goToSlide(i));
-        dotsContainer.appendChild(dot);
-    }
-    const dots = dotsContainer.querySelectorAll('.champion-dot');
-
-    function goToSlide(index) {
-        currentIndex = (index + total) % total;
-
-        const gap = 40;
-
-        // ширина одной карточки
-        const cardWidth = cards[0].getBoundingClientRect().width;
-
-        // смещение = ширина карточки + gap
-        const offset = currentIndex * (cardWidth + gap);
-
-        wrapper.style.transform = `translateX(-${offset}px)`;
-
-        dots.forEach((dot, i) => {
-            dot.classList.toggle('active', i === currentIndex);
+        gallerySlider.addEventListener('mouseenter', () => clearInterval(autoplayInterval));
+        gallerySlider.addEventListener('mouseleave', () => {
+            autoplayInterval = setInterval(() => goToSlide(currentIndex + 1), 4000);
         });
+
+        // Свайпы
+        let startX = 0;
+        wrapper.addEventListener('touchstart', e => startX = e.touches[0].clientX);
+        wrapper.addEventListener('touchend', e => {
+            const endX = e.changedTouches[0].clientX;
+            if (endX < startX - 50) goToSlide(currentIndex + 1);
+            else if (endX > startX + 50) goToSlide(currentIndex - 1);
+        });
+
+        goToSlide(0);
     }
 
-    prevBtn.addEventListener('click', () => goToSlide(currentIndex - 1));
-    nextBtn.addEventListener('click', () => goToSlide(currentIndex + 1));
 
-    // Автопрокрутка
-    let autoInterval = setInterval(() => goToSlide(currentIndex + 1), 5000);
+    // ===================== СЛАЙДЕР LITTERS =====================
+    const littersSlider = document.querySelector('.litters-slider');
+    if (littersSlider) {
+        const wrapper = littersSlider.querySelector('.litters-wrapper');
+        const cards = littersSlider.querySelectorAll('.producer-card');
+        const prevBtn = littersSlider.querySelector('.litter-prev');
+        const nextBtn = littersSlider.querySelector('.litter-next');
+        const dotsContainer = littersSlider.querySelector('.litter-dots');
 
-    slider.addEventListener('mouseenter', () => clearInterval(autoInterval));
-    slider.addEventListener('mouseleave', () => {
-        autoInterval = setInterval(() => goToSlide(currentIndex + 1), 5000);
-    });
+        let currentIndex = 0;
+        const total = cards.length;
+        const GAP = 40;
 
-    goToSlide(0);
+        if (total > 0) {
+            // Точки
+            dotsContainer.innerHTML = '';
+            for (let i = 0; i < total; i++) {
+                const dot = document.createElement('div');
+                dot.classList.add('litter-dot');
+                if (i === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => goToLitterSlide(i));
+                dotsContainer.appendChild(dot);
+            }
+            const dots = dotsContainer.querySelectorAll('.litter-dot');
+
+            function goToLitterSlide(index) {
+                currentIndex = (index + total) % total;
+                const cardWidth = cards[0].getBoundingClientRect().width;
+                const offset = currentIndex * (cardWidth + GAP);
+
+                wrapper.style.transform = `translateX(-${offset}px)`;
+
+                dots.forEach((dot, i) => dot.classList.toggle('active', i === currentIndex));
+            }
+
+            if (prevBtn) prevBtn.addEventListener('click', () => goToLitterSlide(currentIndex - 1));
+            if (nextBtn) nextBtn.addEventListener('click', () => goToLitterSlide(currentIndex + 1));
+
+            let autoInterval = setInterval(() => goToLitterSlide(currentIndex + 1), 5000);
+
+            littersSlider.addEventListener('mouseenter', () => clearInterval(autoInterval));
+            littersSlider.addEventListener('mouseleave', () => {
+                autoInterval = setInterval(() => goToLitterSlide(currentIndex + 1), 5000);
+            });
+
+            window.addEventListener('resize', () => goToLitterSlide(currentIndex));
+            goToLitterSlide(0);
+        }
+    }
+
+
+    // ===================== СЛАЙДЕР CHAMPIONS =====================
+    const championsSlider = document.querySelector('.champions-slider');
+    if (championsSlider) {
+        const wrapper = championsSlider.querySelector('.champions-wrapper');
+        const cards = championsSlider.querySelectorAll('.champion-card');
+        const prevBtn = championsSlider.querySelector('.champion-prev');
+        const nextBtn = championsSlider.querySelector('.champion-next');
+        const dotsContainer = championsSlider.querySelector('.champion-dots');
+
+        let currentIndex = 0;
+        const total = cards.length;
+
+        if (total > 0) {
+            dotsContainer.innerHTML = '';
+            for (let i = 0; i < total; i++) {
+                const dot = document.createElement('div');
+                dot.classList.add('champion-dot');
+                if (i === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => goToChampionSlide(i));
+                dotsContainer.appendChild(dot);
+            }
+            const dots = dotsContainer.querySelectorAll('.champion-dot');
+
+            function goToChampionSlide(index) {
+                currentIndex = (index + total) % total;
+                const gap = 40;
+                const cardWidth = cards[0].getBoundingClientRect().width;
+                const offset = currentIndex * (cardWidth + gap);
+
+                wrapper.style.transform = `translateX(-${offset}px)`;
+
+                dots.forEach((dot, i) => dot.classList.toggle('active', i === currentIndex));
+            }
+
+            if (prevBtn) prevBtn.addEventListener('click', () => goToChampionSlide(currentIndex - 1));
+            if (nextBtn) nextBtn.addEventListener('click', () => goToChampionSlide(currentIndex + 1));
+
+            let autoInterval = setInterval(() => goToChampionSlide(currentIndex + 1), 5000);
+
+            championsSlider.addEventListener('mouseenter', () => clearInterval(autoInterval));
+            championsSlider.addEventListener('mouseleave', () => {
+                autoInterval = setInterval(() => goToChampionSlide(currentIndex + 1), 5000);
+            });
+
+            goToChampionSlide(0);
+        }
+    }
+
+
+    // ===================== СЛАЙДЕР ОТЗЫВОВ =====================
+    const feedbackSection = document.querySelector('.feedback-section');
+    
+    if (feedbackSection) {
+    
+        const track = document.getElementById('feedbackTrack');
+    
+        const slides = [
+            ...document.querySelectorAll('.feedback-slide')
+        ];
+    
+        const prevBtn = feedbackSection.querySelector('.feedback-arrow.prev');
+    
+        const nextBtn = feedbackSection.querySelector('.feedback-arrow.next');
+    
+        const dotsContainer = document.getElementById('feedbackDots');
+    
+        let currentIndex = 0;
+    
+        // ===== Центрирование =====
+        function updateSlider() {
+        
+            if (!slides.length) return;
+        
+            const container = track.parentElement;
+        
+            const containerWidth = container.clientWidth;
+        
+            const slideWidth = slides[0].offsetWidth;
+        
+            const gap =
+                parseFloat(getComputedStyle(track).gap) || 0;
+        
+            const step = slideWidth + gap;
+        
+            // Центр активной карточки
+            const translate =
+                (containerWidth / 2) -
+                (slideWidth / 2) -
+                (currentIndex * step);
+        
+            track.style.transform =
+                `translateX(${translate}px)`;
+        
+            // Active class
+            slides.forEach((slide, index) => {
+            
+                slide.classList.toggle(
+                    'active',
+                    index === currentIndex
+                );
+            });
+        
+            // Active dots
+            const dots =
+                dotsContainer.querySelectorAll('.feedback-dot');
+        
+            dots.forEach((dot, index) => {
+            
+                dot.classList.toggle(
+                    'active',
+                    index === currentIndex
+                );
+            });
+        }
+    
+        // ===== Точки =====
+        function createDots() {
+        
+            dotsContainer.innerHTML = '';
+        
+            slides.forEach((_, index) => {
+            
+                const dot = document.createElement('div');
+            
+                dot.className = 'feedback-dot';
+            
+                if (index === 0) {
+                    dot.classList.add('active');
+                }
+            
+                dot.addEventListener('click', () => {
+                
+                    currentIndex = index;
+                
+                    updateSlider();
+                });
+            
+                dotsContainer.appendChild(dot);
+            });
+        }
+    
+        // ===== Переключение =====
+        function moveSlider(direction) {
+        
+            currentIndex += direction;
+        
+            if (currentIndex < 0) {
+                currentIndex = slides.length - 1;
+            }
+        
+            if (currentIndex >= slides.length) {
+                currentIndex = 0;
+            }
+        
+            updateSlider();
+        }
+    
+        // ===== Кнопки =====
+        if (prevBtn) {
+        
+            prevBtn.addEventListener('click', () => {
+            
+                moveSlider(-1);
+            });
+        }
+    
+        if (nextBtn) {
+        
+            nextBtn.addEventListener('click', () => {
+            
+                moveSlider(1);
+            });
+        }
+    
+        // ===== Resize =====
+        window.addEventListener(
+            'resize',
+            updateSlider
+        );
+    
+        // ===== Init =====
+        createDots();
+    
+        updateSlider();
+    }
+
+    // ===================== ПАДАЮЩИЕ ЗВЁЗДЫ =====================
+    function createFallingStars() {
+        const container = document.querySelector('.stars-container');
+        if (!container) return;
+
+        const starCount = 45;
+
+        for (let i = 0; i < starCount; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            star.textContent = '✦';
+
+            const left = Math.random() * 100;
+            const delay = Math.random() * 15;
+            const duration = 12 + Math.random() * 18;
+
+            star.style.left = `${left}vw`;
+            star.style.animationDelay = `-${delay}s`;
+            star.style.animationDuration = `${duration}s`;
+
+            container.appendChild(star);
+        }
+    }
+
+    createFallingStars();
+
 });
-
-
-
-// Падающие звёздочки в Hero
-function createFallingStars() {
-    const container = document.querySelector('.stars-container');
-    if (!container) return;
-
-    const starCount = 45;   // количество звёзд
-
-    for (let i = 0; i < starCount; i++) {
-        const star = document.createElement('div');
-        star.classList.add('star');
-        star.textContent = '✦';           // красивая звёздочка
-
-        // Случайное положение и задержка
-        const left = Math.random() * 100;
-        const delay = Math.random() * 15;
-        const duration = 12 + Math.random() * 18;   // от 12 до 30 секунд
-
-        star.style.left = `${left}vw`;
-        star.style.animationDelay = `-${delay}s`;
-        star.style.animationDuration = `${duration}s`;
-
-        container.appendChild(star);
-    }
-}
-
-// Запускаем после загрузки
-document.addEventListener('DOMContentLoaded', createFallingStars);

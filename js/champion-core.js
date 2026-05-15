@@ -27,7 +27,7 @@ function initUniversalFooter() {
     const footerPlaceholder = document.getElementById('footer-placeholder');
     if (!footerPlaceholder) return;
 
-    
+    // Путь к файлу футера (../ так как страницы чемпионов лежат в подпапке)
     fetch('../components/footer.html')
         .then(response => {
             if (!response.ok) throw new Error('Footer file not found');
