@@ -214,6 +214,116 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // ===================== СЛАЙДЕР ЩЕНКОВ (PUPPIES) =====================
+    const puppiesSlider = document.querySelector('.puppies-slider');
+    if (puppiesSlider) {
+        const wrapper = puppiesSlider.querySelector('.puppies-wrapper');
+        const cards = puppiesSlider.querySelectorAll('.puppy-card');
+        const prevBtn = puppiesSlider.querySelector('.puppy-prev');
+        const nextBtn = puppiesSlider.querySelector('.puppy-next');
+        const dotsContainer = puppiesSlider.querySelector('.puppy-dots');
+
+        let currentIndex = 0;
+        const total = cards.length;
+
+        if (total > 0) {
+            // Динамическое определение количества карточек на экране
+            function getCardsPerView() {
+                if (window.innerWidth <= 576) return 1;
+                if (window.innerWidth <= 992) return 2;
+                return 3;
+            }
+
+            // Функция создания точек
+            function createPuppyDots() {
+                if (!dotsContainer) return;
+                dotsContainer.innerHTML = '';
+                const maxIndex = Math.max(0, total - getCardsPerView());
+                
+                for (let i = 0; i <= maxIndex; i++) {
+                    const dot = document.createElement('div');
+                    dot.classList.add('puppy-dot'); // Исправлено на puppy-dot из CSS
+                    if (i === currentIndex) dot.classList.add('active');
+                    
+                    dot.addEventListener('click', () => {
+                        currentIndex = i;
+                        goToPuppiesSlide();
+                    });
+                    dotsContainer.appendChild(dot);
+                }
+            }
+
+            // Функция смещения слайдера
+            function goToPuppiesSlide() {
+                const cardsPerView = getCardsPerView();
+                const maxIndex = Math.max(0, total - cardsPerView);
+                
+                // ЦИКЛИЧНОСТЬ: если ушли в минус — прыгаем в конец. Если больше максимума — в начало.
+                if (currentIndex < 0) {
+                    currentIndex = maxIndex;
+                } else if (currentIndex > maxIndex) {
+                    currentIndex = 0;
+                }
+
+                const gap = 24; // Отступ gap из puppies.css
+                const cardWidth = cards[0].getBoundingClientRect().width;
+                const offset = currentIndex * (cardWidth + gap);
+
+                wrapper.style.transform = `translateX(-${offset}px)`;
+
+                // Подсветка активной точки
+                const dots = dotsContainer.querySelectorAll('.puppy-dot');
+                if (dots.length > 0) {
+                    dots.forEach((dot, i) => dot.classList.toggle('active', i === currentIndex));
+                }
+            }
+
+            // Навешивание кликов на стрелочки
+            if (prevBtn) {
+                prevBtn.addEventListener('click', () => {
+                    currentIndex--;
+                    goToPuppiesSlide();
+                });
+            }
+
+            if (nextBtn) {
+                nextBtn.addEventListener('click', () => {
+                    currentIndex++;
+                    goToPuppiesSlide();
+                });
+            }
+
+            // Автопрокрутка раз в 5 секунд
+            let autoInterval = setInterval(() => {
+                currentIndex++;
+                goToPuppiesSlide();
+            }, 5000);
+
+            // Пауза автопрокрутки при наведении мыши
+            puppiesSlider.addEventListener('mouseenter', () => clearInterval(autoInterval));
+            puppiesSlider.addEventListener('mouseleave', () => {
+                autoInterval = setInterval(() => {
+                    currentIndex++;
+                    goToPuppiesSlide();
+                }, 5000);
+            });
+
+            // Отслеживание изменения размеров окна браузера
+            window.addEventListener('resize', () => {
+                // Корректируем индекс, если при повороте экрана он оказался за пределами
+                const maxIndex = Math.max(0, total - getCardsPerView());
+                if (currentIndex > maxIndex) currentIndex = maxIndex;
+                
+                createPuppyDots();
+                goToPuppiesSlide();
+            });
+
+            // Инициализация слайдера
+            createPuppyDots();
+            goToPuppiesSlide();
+        }
+    }
+
 
     // ===================== СЛАЙДЕР ОТЗЫВОВ =====================
     const feedbackSection = document.querySelector('.feedback-section');

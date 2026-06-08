@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link rel="stylesheet" href="../../css/main.css">
-    <link rel="stylesheet" href="../../css/nav.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/nav.css">
+    <link rel="stylesheet" href="/css/puppies.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <title>Питомник Ascending Star</title>
 </head>
@@ -17,10 +18,7 @@
             <ul class="nav-list">
                 <li><a href="/index.html">Главная</a></li>
                 <li><a href="#about">О помете</a></li>
-                <li><a href="#champions">Наши чемпионы</a></li>
-                <li><a href="#litters">Пометы</a></li>
-                <li><a href="#gallery">Галерея</a></li>
-                <li><a href="#feedback">Отзывы</a></li>
+                <li><a href="#puppies">Наши щеняты</a></li>
                 <li><a href="#contact">Контакты</a></li>
                 
                 <li class="mobile-call-wrapper">
@@ -41,193 +39,168 @@
     </header>
 
     <main>
-        <!-- Немного о помете с превью -->
-        <section id="about">
+        <!-- Немного о помете -->
+        <section class="about-litter" id="about">
+            <div class="about-litter-container">
+                <h2 class="section-title"><span>О помёте</span></h2>
+                <p class="section-desc">Уникальное сочетание кровей, изысканного экстерьера и безупречного характера</p>
+                
+                <div class="parents-line">
+                    <div class="litter-item">
+                        <div class="litter-photo">
+                            <img src="/asset/img/dog/DRAGONFIRE'S DO IT OR DON'T DO IT/DRAGONFIRE'S DO IT OR DON'T DO IT12.jpg" alt="DRAGONFIRE'S DO IT OR DON'T DO IT">
+                        </div>
+                        <h4>DRAGONFIRE'S DO IT OR DON'T DO IT</h4>
+                        <div class="litter-role">Отец помёта</div>
+                    </div>
 
+                    <div class="litter-symbol">×</div>
+
+                    <div class="litter-item">
+                        <div class="litter-photo">
+                            <img src="/asset/img/dog/ZaraLofty/ZaraLofty2.jpg" alt="Zara Lofty">
+                        </div>
+                        <h4>Zara Lofty</h4>
+                        <div class="litter-role">Мать помёта</div>
+                    </div>
+                </div>
+
+                <div class="litter-info">
+                    <h3>Помёт «Ж» • Дата рождения: 27.12.2025</h3>
+                    <p class="litter-desc">
+                        Мы рады представить вам долгожданный помёт от великолепной пары чемпионов. Этот союз объединил в себе выдающиеся родословные линии, крепкое здоровье и прекрасный экстерьер. 
+                    </p>
+                    <p class="litter-desc">
+                        Родители обладают устойчивой психикой, прошли все необходимые официальные генетические тесты и проверки здоровья, подтвердив своё превосходное происхождение. Все щенки перспективны для выставочной карьеры, племенного разведения и, самое главное, станут преданными и любящими членами вашей семьи.
+                    </p>
+                </div>
+            </div>
         </section>
+        
 
         <!-- Слайдер с щенками -->
-        <section class="champions" id="champions">
-            <h2 class="section-title">Наши Щеняты</h2>
-            <p class="section-desc">Помёт от 20.04.2025</p>
+        <section class="puppies" id="puppies">
+            <h2 class="section-title"><span>Наши щенята</span></h2>
+            <p class="section-desc">Помёт «Ж» • Рождены 27.12.2025</p>
             
-            <div class="champions-slider">
-                <div class="champions-wrapper">
-                    <base href="/asset/img/litters_27.12.2025_ZaraLofty_X_DRAGONFIRE'S_DO_IT_OR_DON'T_DO_IT/"> 
+            <div class="puppies-slider">
+                <div class="puppies-wrapper">
                     
-                    <!-- ASZhadan Grand Legacy -->
-                    <a href="ASZhadanGrandLegacy.html" class="champion-card">
-                        <div class="photo">
-                            <img src="ASZhadan Grand Legacy/Zhadan Grand Legacy4.jpg" alt="ASZhadan Grand Legacy">
+                    <a href="ASZhadanGrandLegacy.html" class="puppy-card">
+                        <div class="puppy-photo">
+                            <img src="/asset/img/litters_27.12.2025_ZaraLofty_X_DRAGONFIRE'S_DO_IT_OR_DON'T_DO_IT/ASZhadan Grand Legacy/Zhadan Grand Legacy4.jpg" alt="ASZhadan Grand Legacy">
                         </div>
-                        <div class="info">
+                        <div class="puppy-info">
                             <h4>Zhadan Grand Legacy</h4>
-                            <div class="meta">
-                                <span>О нем</span>
-                                <span class="tityl">Текст</span>
-                                <span>Текст</span>
-                            </div>
+                            <div class="puppy-gender male">Кобель</div>
                         </div>
                     </a>
 
-                    <!-- ASZhana Moonlight Whisper -->
-                    <a href="ASZhanaMoonlightWhisper.html" class="champion-card">
-                        <div class="photo">
-                            <img src="ASZhana Moonlight Whisper/Zhana Moonlight Whisper5.jpg" alt="ASZhana Moonlight Whisper">
+                    <a href="ASZhanaMoonlightWhisper.html" class="puppy-card">
+                        <div class="puppy-photo">
+                            <img src="/asset/img/litters_27.12.2025_ZaraLofty_X_DRAGONFIRE'S_DO_IT_OR_DON'T_DO_IT/ASZhana Moonlight Whisper/Zhana Moonlight Whisper5.jpg" alt="ASZhana Moonlight Whisper">
                         </div>
-                        <div class="info">
+                        <div class="puppy-info">
                             <h4>Zhana Moonlight Whisper</h4>
-                            <div class="meta">
-                                <span>О ней</span>
-                                <span class="tityl">Текст</span>
-                                <span>Текст</span>
-                            </div>
+                            <div class="puppy-gender female">Сука</div>
                         </div>
                     </a>
 
-                    <!-- ASZhanna Red Silhouette -->
-                    <a href="ASZhannaRedSilhouette.html" class="champion-card">
-                        <div class="photo">
-                            <img src="ASZhanna Red Silhouette/Zhanna Red Silhouette9.jpg" alt="ASZhanna Red Silhouette">
+                    <a href="ASZhannaRedSilhouette.html" class="puppy-card">
+                        <div class="puppy-photo">
+                            <img src="/asset/img/litters_27.12.2025_ZaraLofty_X_DRAGONFIRE'S_DO_IT_OR_DON'T_DO_IT/ASZhanna Red Silhouette/Zhanna Red Silhouette9.jpg" alt="ASZhanna Red Silhouette">
                         </div>
-                        <div class="info">
+                        <div class="puppy-info">
                             <h4>Zhanna Red Silhouette</h4>
-                            <div class="meta">
-                                <span>О ней</span>
-                                <span class="tityl">Текст</span>
-                                <span>Текст</span>
-                            </div>
+                            <div class="puppy-gender female">Сука</div>
                         </div>
                     </a>
 
-                    <!-- ASZhara Velvet Grace -->
-                    <a href="ASZharaVelvetGrace.html" class="champion-card">
-                        <div class="photo">
-                            <img src="ASZhara Velvet Grace/Zhara Velvet Grace8.jpg" alt="ASZhara Velvet Grace">
+                    <a href="ASZharaVelvetGrace.html" class="puppy-card">
+                        <div class="puppy-photo">
+                            <img src="/asset/img/litters_27.12.2025_ZaraLofty_X_DRAGONFIRE'S_DO_IT_OR_DON'T_DO_IT/ASZhara Velvet Grace/Zhara Velvet Grace8.jpg" alt="ASZhara Velvet Grace">
                         </div>
-                        <div class="info">
+                        <div class="puppy-info">
                             <h4>Zhara Velvet Grace</h4>
-                            <div class="meta">
-                                <span>О ней</span>
-                                <span class="tityl">Текст</span>
-                                <span>Текст</span>
-                            </div>
+                            <div class="puppy-gender female">Сука</div>
                         </div>
                     </a>
 
-                    <!-- ASZharomir Scarlet Lord -->
-                    <a href="ASZharomirScarletLord.html" class="champion-card">
-                        <div class="photo">
-                            <img src="ASZharomir Scarlet Lord/Zharomir Scarlet Lord7.jpg" alt="ASZharomir Scarlet Lord">
+                    <a href="ASZharomirScarletLord.html" class="puppy-card">
+                        <div class="puppy-photo">
+                            <img src="/asset/img/litters_27.12.2025_ZaraLofty_X_DRAGONFIRE'S_DO_IT_OR_DON'T_DO_IT/ASZharomir Scarlet Lord/Zharomir Scarlet Lord7.jpg" alt="ASZharomir Scarlet Lord">
                         </div>
-                        <div class="info">
+                        <div class="puppy-info">
                             <h4>Zharomir Scarlet Lord</h4>
-                            <div class="meta">
-                                <span>О нем</span>
-                                <span class="tityl">Текст</span>
-                                <span>Текст</span>
-                            </div>
+                            <div class="puppy-gender male">Кобель</div>
                         </div>
                     </a>
 
-                    <!-- ASZhavia Nob'le Light -->
-                    <a href="ASZhaviaNobleLight.html" class="champion-card">
-                        <div class="photo">
-                            <img src="ASZhavia Nob'le Light/Zhavia Nob'le Light6.jpg" alt="ASZhavia Nob'le Light">
+                    <a href="ASZhaviaNobleLight.html" class="puppy-card">
+                        <div class="puppy-photo">
+                            <img src="/asset/img/litters_27.12.2025_ZaraLofty_X_DRAGONFIRE'S_DO_IT_OR_DON'T_DO_IT/ASZhavia Nob'le Light/Zhavia Nob'le Light6.jpg" alt="ASZhavia Nob'le Light">
                         </div>
-                        <div class="info">
+                        <div class="puppy-info">
                             <h4>Zhavia Nob'le Light</h4>
-                            <div class="meta">
-                                <span>О ней</span>
-                                <span class="tityl">Текст</span>
-                                <span>Текст</span>
-                            </div>
+                            <div class="puppy-gender female">Сука</div>
                         </div>
                     </a>
 
-                    <!-- ASZhelia Scarlett Muse -->
-                    <a href="ASZheliaScarlettMuse.html" class="champion-card">
-                        <div class="photo">
-                            <img src="ASZhelia Scarlett Muse/Zhelia Scarlett Muse5.jpg" alt="ASZhelia Scarlett Muse">
+                    <a href="ASZheliaScarlettMuse.html" class="puppy-card">
+                        <div class="puppy-photo">
+                            <img src="/asset/img/litters_27.12.2025_ZaraLofty_X_DRAGONFIRE'S_DO_IT_OR_DON'T_DO_IT/ASZhelia Scarlett Muse/Zhelia Scarlett Muse5.jpg" alt="ASZhelia Scarlett Muse">
                         </div>
-                        <div class="info">
+                        <div class="puppy-info">
                             <h4>Zhelia Scarlett Muse</h4>
-                            <div class="meta">
-                                <span>О ней</span>
-                                <span class="tityl">Текст</span>
-                                <span>Текст</span>
-                            </div>
+                            <div class="puppy-gender female">Сука</div>
                         </div>
                     </a>
 
-                    <!-- ASZheneva Golden Poise -->
-                    <a href="ASZhenevaGoldenPoise.html" class="champion-card">
-                        <div class="photo">
-                            <img src="ASZheneva Golden Poise/Zheneva Golden Poise4.jpg" alt="ASZheneva Golden Poise">
+                    <a href="ASZhenevaGoldenPoise.html" class="puppy-card">
+                        <div class="puppy-photo">
+                            <img src="/asset/img/litters_27.12.2025_ZaraLofty_X_DRAGONFIRE'S_DO_IT_OR_DON'T_DO_IT/ASZheneva Golden Poise/Zheneva Golden Poise4.jpg" alt="ASZheneva Golden Poise">
                         </div>
-                        <div class="info">
+                        <div class="puppy-info">
                             <h4>Zheneva Golden Poise</h4>
-                            <div class="meta">
-                                <span>О ней</span>
-                                <span class="tityl">Текст</span>
-                                <span>Текст</span>
-                            </div>
+                            <div class="puppy-gender female">Сука</div>
                         </div>
                     </a>
 
-                    <!-- ASZherald Crimson Heir -->
-                    <a href="ASZheraldCrimsonHeir.html" class="champion-card">
-                        <div class="photo">
-                            <img src="ASZherald Crimson Heir/Zherald Crimson Heir2.jpg" alt="ASZherald Crimson Heir">
+                    <a href="ASZheraldCrimsonHeir.html" class="puppy-card">
+                        <div class="puppy-photo">
+                            <img src="/asset/img/litters_27.12.2025_ZaraLofty_X_DRAGONFIRE'S_DO_IT_OR_DON'T_DO_IT/ASZherald Crimson Heir/Zherald Crimson Heir2.jpg" alt="ASZherald Crimson Heir">
                         </div>
-                        <div class="info">
+                        <div class="puppy-info">
                             <h4>Zherald Crimson Heir</h4>
-                            <div class="meta">
-                                <span>О нем</span>
-                                <span class="tityl">Текст</span>
-                                <span>Текст</span>
-                            </div>
+                            <div class="puppy-gender male">Кобель</div>
                         </div>
                     </a>
 
-                    <!-- ASZhivago Noble Flame -->
-                    <a href="ASZhivagoNobleFlame.html" class="champion-card">
-                        <div class="photo">
-                            <img src="ASZhivago Noble Flame/Zhivago Noble Flame3.jpg" alt="ASZhivago Noble Flame">
+                    <a href="ASZhivagoNobleFlame.html" class="puppy-card">
+                        <div class="puppy-photo">
+                            <img src="/asset/img/litters_27.12.2025_ZaraLofty_X_DRAGONFIRE'S_DO_IT_OR_DON'T_DO_IT/ASZhivago Noble Flame/Zhivago Noble Flame3.jpg" alt="ASZhivago Noble Flame">
                         </div>
-                        <div class="info">
+                        <div class="puppy-info">
                             <h4>Zhivago Noble Flame</h4>
-                            <div class="meta">
-                                <span>О нем</span>
-                                <span class="tityl">Текст</span>
-                                <span>Текст</span>
-                            </div>
+                            <div class="puppy-gender male">Кобель</div>
                         </div>
                     </a>
 
-                    <!-- ASZhonty Royal Motion -->
-                    <a href="ASZhontyRoyalMotion.html" class="champion-card">
-                        <div class="photo">
-                            <img src="ASZhonty Royal Motion/Zhonty Royal Motion1.jpg" alt="ASZhonty Royal Motion">
+                    <a href="ASZhontyRoyalMotion.html" class="puppy-card">
+                        <div class="puppy-photo">
+                            <img src="/asset/img/litters_27.12.2025_ZaraLofty_X_DRAGONFIRE'S_DO_IT_OR_DON'T_DO_IT/ASZhonty Royal Motion/Zhonty Royal Motion1.jpg" alt="ASZhonty Royal Motion">
                         </div>
-                        <div class="info">
+                        <div class="puppy-info">
                             <h4>Zhonty Royal Motion</h4>
-                            <div class="meta">
-                                <span>О нем</span>
-                                <span class="tityl">Текст</span>
-                                <span>Текст</span>
-                            </div>
+                            <div class="puppy-gender male">Кобель</div>
                         </div>
                     </a>
-
 
                 </div>
-                <!-- Стрелки -->
-                <button class="champion-arrow champion-prev" aria-label="Предыдущий">‹</button>
-                <button class="champion-arrow champion-next" aria-label="Следующий">›</button>
+                <button class="puppy-arrow puppy-prev" aria-label="Предыдущий">‹</button>
+                <button class="puppy-arrow puppy-next" aria-label="Следующий">›</button>
             
-                <!-- Точки -->
-                <div class="champion-dots"></div>
+                <div class="puppy-dots"></div>
             </div>
         </section>
     </main>
