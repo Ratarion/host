@@ -848,6 +848,25 @@ section {
     margin: 50px 0;
 }
 
+.parents-line a {
+    text-decoration: none;
+    color: inherit; /* Чтобы имена собак не стали синими ссылками */
+    display: block; /* Обязательно, чтобы transform и тень работали корректно */
+    border: 1px solid transparent; /* Невидимая рамка, чтобы при hover она просто меняла цвет, а не двигала контент */
+    border-radius: 8px; /* Скругление углов для тени и рамки */
+    
+    /* Добавляем ПЛАВНОСТЬ анимации (0.3 секунды) */
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; 
+}
+
+/* Состояние при наведении */
+.parents-line a:hover {
+    transform: translateY(-5px);
+    border-color: #d4af37; /* Теперь рамка плавно станет золотой */
+    /* Заменил кислотный желтый на ваш благородный золотой с прозрачностью 30% */
+}
+
+
 .litter-item {
     flex: 1;
     max-width: 420px;
@@ -884,9 +903,11 @@ section {
 
 /* Символ скрещивания */
 .litter-symbol {
-    font-size: 2.5rem;
-    color: rgba(255, 255, 255, 0.2); /* Неброский серый цвет */
-    font-weight: 300;
+    font-size: 2.9rem;
+    color: #d4af37;
+    line-height: 1;
+    padding: 0 10px;
+    flex-shrink: 0;
 }
 
 /* Блок информации — просто чистый текст на основном фоне страницы */
@@ -1002,7 +1023,7 @@ section {
 
 /* Блок с текстовой информацией */
 .puppy-info {
-    padding: 22px 20px;
+    padding: 12px 10px;
     text-align: center;
 }
 

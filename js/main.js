@@ -38,6 +38,10 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .then(data => {
                 footerPlaceholder.innerHTML = data;
+                const yearSpan = document.getElementById('current-year');
+                if (yearSpan) {
+                    yearSpan.textContent = new Date().getFullYear();
+                }
             })
             .catch(error => {
                 console.error('Error loading footer:', error);
