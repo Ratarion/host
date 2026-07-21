@@ -195,7 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             function goToChampionSlide(index) {
                 currentIndex = (index + total) % total;
-                const gap = 40;
+                const gap = parseFloat(getComputedStyle(wrapper).columnGap) || 0;
                 const cardWidth = cards[0].getBoundingClientRect().width;
                 const offset = currentIndex * (cardWidth + gap);
 
@@ -213,6 +213,8 @@ document.addEventListener('DOMContentLoaded', () => {
             championsSlider.addEventListener('mouseleave', () => {
                 autoInterval = setInterval(() => goToChampionSlide(currentIndex + 1), 5000);
             });
+
+            window.addEventListener('resize', () => goToChampionSlide(currentIndex));
 
             goToChampionSlide(0);
         }

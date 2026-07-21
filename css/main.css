@@ -9,6 +9,7 @@
 html {
     scroll-behavior: smooth;
     overflow-x: hidden;
+    scroll-padding-top: 100px; /* высота фиксированной шапки, чтобы заголовки секций не прятались под ней */
 }
 
 body {
@@ -625,6 +626,11 @@ section {
 }
 
 /* Адаптив */
+@media (max-width: 1200px) {
+    .champion-prev { left: 10px; }
+    .champion-next { right: 10px; }
+}
+
 @media (max-width: 992px) {
     .champions-slider { padding: 0 30px; }
     .champion-card { height: 520px; }
@@ -1175,6 +1181,7 @@ section {
     max-width: 1300px;
     margin: 0 auto;
     padding: 0 60px;
+    overflow: hidden;
 }
 
 
@@ -1426,6 +1433,8 @@ section {
     }
 
     .champion-arrow {
+        top: 150px;             /* центр по высоте .photo (300px), а не всей карточки */
+        transform: translateY(-50%);
         width: 48px;
         height: 48px;
         font-size: 2rem;
